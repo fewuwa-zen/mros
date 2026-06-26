@@ -13,7 +13,8 @@ export function FotoKachel({
   foto: FotoMitUrl;
   gruppen: Pick<Fotogruppe, "id" | "titel">[];
 }) {
-  const t = useDict().foto;
+  const dict = useDict();
+  const t = dict.foto;
   const router = useRouter();
   const [busy, setBusy] = useState(false);
 
@@ -26,6 +27,18 @@ export function FotoKachel({
         className="aspect-square w-full object-cover"
       />
       <div className="flex flex-col gap-1 p-2">
+        {foto.befund && (
+          <p className="text-xs text-slate-700">{foto.befund}</p>
+        )}
+        {foto.dokument_titel && foto.abbildung_nr != null && (
+          <p className="text-[10px] leading-tight text-slate-400">
+            {dict.fotoMeta.quelle(
+              foto.dokument_titel,
+              foto.abbildung_nr,
+              foto.quelle_seite ?? 0,
+            )}
+          </p>
+        )}
         <select
           aria-label={t.zuordnenAria}
           disabled={busy}

@@ -30,3 +30,4 @@ export function prioFarbe(wert: number | null | undefined): string | undefined {
 }
 
 export const FOTO_BUCKET = "fotos";
+export const DOKUMENT_BUCKET = "dokumente";

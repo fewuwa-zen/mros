@@ -134,6 +134,23 @@ export async function assignFoto(formData: FormData) {
   revalidatePath(`/bauteil/${bauteilId}`);
 }
 
+// Ordnet ein oder mehrere (bislang unzugeordnete) Fotos einem Bauteil zu.
+export async function assignFotosToBauteil(
+  fotoIds: string[],
+  bauteilId: string,
+) {
+  if (!bauteilId || fotoIds.length === 0) return;
+  const supabase = await createClient();
+  const { error } = await supabase
+    .from("foto")
+    .update({ bauteil_id: bauteilId, fotogruppe_id: null })
+    .in("id", fotoIds);
+  if (error) throw error;
+  revalidatePath("/eingang");
+  revalidatePath(`/bauteil/${bauteilId}`);
+  revalidatePath("/");
+}
+
 export async function deleteFoto(formData: FormData) {
   const id = String(formData.get("id"));
   const bauteilId = String(formData.get("bauteil_id"));

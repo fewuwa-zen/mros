@@ -10,8 +10,33 @@ export type Dict = {
   langName: string;
   objektSubtitle: string;
   bearbeiter: string;
-  nav: { bauteile: string; bericht: string };
+  nav: {
+    bauteile: string;
+    bericht: string;
+    dokumente: string;
+    eingang: string;
+  };
+  eingang: {
+    title: string;
+    subtitle: string;
+    leer: string;
+    bauteilWaehlen: string;
+    zuweisen: (n: number) => string;
+    zuweisenLaeuft: string;
+    alleWaehlen: string;
+    auswahlAufheben: string;
+    hinweis: string;
+    keinBauteil: string;
+  };
   home: { title: string; neuesBauteil: string; leer: string };
+  dokumente: {
+    title: string;
+    subtitle: string;
+    leer: string;
+    oeffnen: string;
+    meta: (seiten: number, fotos: number) => string;
+  };
+  fotoMeta: { quelle: (titel: string, abb: number, seite: number) => string };
   bauteilForm: {
     neuTitel: string;
     bezeichnung: string;
@@ -98,11 +123,40 @@ const de: Dict = {
   langName: "Deutsch",
   objektSubtitle: "Bauteildokumentation",
   bearbeiter: "Hr. Mros (Bauingenieur)",
-  nav: { bauteile: "Bauteile", bericht: "Bericht" },
+  nav: {
+    bauteile: "Bauteile",
+    bericht: "Bericht",
+    dokumente: "Dokumente",
+    eingang: "Eingang",
+  },
+  eingang: {
+    title: "Foto-Eingang",
+    subtitle: "Noch nicht zugeordnete Fotos – einem Bauteil zuweisen",
+    leer: "Keine unzugeordneten Fotos. Alles zugewiesen 🎉",
+    bauteilWaehlen: "Bauteil wählen…",
+    zuweisen: (n) => `${n} Foto(s) zuweisen`,
+    zuweisenLaeuft: "Weise zu…",
+    alleWaehlen: "Alle dieser Gruppe",
+    auswahlAufheben: "Auswahl aufheben",
+    hinweis:
+      "Fotos ankreuzen, oben ein Bauteil wählen und zuweisen. Befunde innerhalb des Bauteils ordnest du danach im Bauteil zu.",
+    keinBauteil:
+      "Noch keine Bauteile vorhanden. Lege zuerst unter „Bauteile“ ein Bauteil an.",
+  },
   home: {
     title: "Bauteile",
     neuesBauteil: "+ Neues Bauteil",
     leer: "Noch keine Bauteile angelegt. Mit „+ Neues Bauteil“ beginnen.",
+  },
+  dokumente: {
+    title: "Dokumente",
+    subtitle: "Gutachten (PDF) zum Objekt",
+    leer: "Noch keine Dokumente hochgeladen.",
+    oeffnen: "PDF öffnen",
+    meta: (seiten, fotos) => `${seiten} Seiten · ${fotos} Fotos importiert`,
+  },
+  fotoMeta: {
+    quelle: (titel, abb, seite) => `${titel} · Abb. ${abb} (S. ${seite})`,
   },
   bauteilForm: {
     neuTitel: "Neues Bauteil anlegen",
@@ -208,11 +262,40 @@ const en: Dict = {
   langName: "English",
   objektSubtitle: "Component documentation",
   bearbeiter: "Mr. Mros (structural engineer)",
-  nav: { bauteile: "Components", bericht: "Report" },
+  nav: {
+    bauteile: "Components",
+    bericht: "Report",
+    dokumente: "Documents",
+    eingang: "Inbox",
+  },
+  eingang: {
+    title: "Photo inbox",
+    subtitle: "Unassigned photos – assign them to a component",
+    leer: "No unassigned photos. All assigned 🎉",
+    bauteilWaehlen: "Select component…",
+    zuweisen: (n) => `Assign ${n} photo(s)`,
+    zuweisenLaeuft: "Assigning…",
+    alleWaehlen: "All in this group",
+    auswahlAufheben: "Clear selection",
+    hinweis:
+      "Check photos, pick a component above and assign. You then sort them into findings inside the component.",
+    keinBauteil:
+      "No components yet. Create one under “Components” first.",
+  },
   home: {
     title: "Components",
     neuesBauteil: "+ New component",
     leer: "No components yet. Start with “+ New component”.",
+  },
+  dokumente: {
+    title: "Documents",
+    subtitle: "Reports (PDF) for the property",
+    leer: "No documents uploaded yet.",
+    oeffnen: "Open PDF",
+    meta: (seiten, fotos) => `${seiten} pages · ${fotos} photos imported`,
+  },
+  fotoMeta: {
+    quelle: (titel, abb, seite) => `${titel} · Fig. ${abb} (p. ${seite})`,
   },
   bauteilForm: {
     neuTitel: "Add new component",

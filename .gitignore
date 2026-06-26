@@ -40,3 +40,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 .env.local
+
+# Quell-PDFs (liegen in Supabase Storage, nicht im Repo)
+src/*.pdf

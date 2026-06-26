@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import Link from "next/link";
 import "./globals.css";
 import { OBJEKT } from "@/lib/constants";
+import { countUnzugeordnet } from "@/lib/data";
+import { supabaseConfigured } from "@/lib/supabase/config";
 import { getServerDict } from "@/lib/i18n/server";
 import { I18nProvider } from "@/lib/i18n/context";
 import { LangSwitcher } from "@/components/LangSwitcher";
@@ -28,6 +30,14 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const { lang, dict } = await getServerDict();
+  let eingangCount = 0;
+  if (supabaseConfigured()) {
+    try {
+      eingangCount = await countUnzugeordnet();
+    } catch {
+      eingangCount = 0;
+    }
+  }
 
   return (
     <html
@@ -52,6 +62,23 @@ export default async function RootLayout({
                   className="rounded-md px-3 py-1.5 text-slate-600 hover:bg-slate-100"
                 >
                   {dict.nav.bauteile}
+                </Link>
+                <Link
+                  href="/eingang"
+                  className="flex items-center gap-1.5 rounded-md px-3 py-1.5 text-slate-600 hover:bg-slate-100"
+                >
+                  {dict.nav.eingang}
+                  {eingangCount > 0 && (
+                    <span className="rounded-full bg-amber-500 px-1.5 py-0.5 text-[11px] font-semibold leading-none text-white">
+                      {eingangCount}
+                    </span>
+                  )}
+                </Link>
+                <Link
+                  href="/dokumente"
+                  className="rounded-md px-3 py-1.5 text-slate-600 hover:bg-slate-100"
+                >
+                  {dict.nav.dokumente}
                 </Link>
                 <Link
                   href="/bericht"
