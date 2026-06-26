@@ -31,8 +31,6 @@ export default async function DokumentePage() {
         </p>
       </div>
 
-      <DokumentUpload />
-
       {dokumente.length === 0 ? (
         <div className="rounded-lg border border-dashed border-slate-300 bg-white p-10 text-center text-sm text-slate-500">
           {t.leer}
@@ -71,6 +69,8 @@ export default async function DokumentePage() {
           ))}
         </ul>
       )}
+
+      <DokumentUpload />
     </div>
   );
 }
