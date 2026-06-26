@@ -15,6 +15,7 @@ export type Dict = {
     bericht: string;
     dokumente: string;
     eingang: string;
+    papierkorb: string;
   };
   eingang: {
     title: string;
@@ -27,6 +28,21 @@ export type Dict = {
     auswahlAufheben: string;
     hinweis: string;
     keinBauteil: string;
+    inPapierkorb: (n: number) => string;
+    inPapierkorbLaeuft: string;
+  };
+  papierkorb: {
+    title: string;
+    subtitle: string;
+    leer: string;
+    hinweis: string;
+    alleWaehlen: string;
+    auswahlAufheben: string;
+    wiederherstellen: (n: number) => string;
+    wiederherstellenLaeuft: string;
+    endgueltig: (n: number) => string;
+    endgueltigLaeuft: string;
+    confirmEndgueltig: (n: number) => string;
   };
   home: {
     title: string;
@@ -144,6 +160,7 @@ const de: Dict = {
     bericht: "Bericht",
     dokumente: "Dokumente",
     eingang: "Eingang",
+    papierkorb: "Papierkorb",
   },
   eingang: {
     title: "Foto-Eingang",
@@ -158,6 +175,23 @@ const de: Dict = {
       "Fotos ankreuzen, oben ein Bauteil wählen und zuweisen. Befunde innerhalb des Bauteils ordnest du danach im Bauteil zu.",
     keinBauteil:
       "Noch keine Bauteile vorhanden. Lege zuerst unter „Bauteile“ ein Bauteil an.",
+    inPapierkorb: (n) => `${n} in den Papierkorb`,
+    inPapierkorbLaeuft: "Verschiebe…",
+  },
+  papierkorb: {
+    title: "Papierkorb",
+    subtitle: "Aussortierte Fotos – wiederherstellen oder endgültig löschen",
+    leer: "Papierkorb ist leer.",
+    hinweis:
+      "Diese Fotos werden im Eingang nicht mehr angezeigt. Du kannst sie wiederherstellen oder endgültig löschen.",
+    alleWaehlen: "Alle wählen",
+    auswahlAufheben: "Auswahl aufheben",
+    wiederherstellen: (n) => `${n} wiederherstellen`,
+    wiederherstellenLaeuft: "Stelle wieder her…",
+    endgueltig: (n) => `${n} endgültig löschen`,
+    endgueltigLaeuft: "Lösche…",
+    confirmEndgueltig: (n) =>
+      `${n} Foto(s) endgültig und unwiderruflich löschen?`,
   },
   home: {
     title: "Bauteile",
@@ -295,6 +329,7 @@ const en: Dict = {
     bericht: "Report",
     dokumente: "Documents",
     eingang: "Inbox",
+    papierkorb: "Trash",
   },
   eingang: {
     title: "Photo inbox",
@@ -309,6 +344,22 @@ const en: Dict = {
       "Check photos, pick a component above and assign. You then sort them into findings inside the component.",
     keinBauteil:
       "No components yet. Create one under “Components” first.",
+    inPapierkorb: (n) => `Move ${n} to trash`,
+    inPapierkorbLaeuft: "Moving…",
+  },
+  papierkorb: {
+    title: "Trash",
+    subtitle: "Discarded photos – restore or delete permanently",
+    leer: "Trash is empty.",
+    hinweis:
+      "These photos no longer appear in the inbox. You can restore them or delete them permanently.",
+    alleWaehlen: "Select all",
+    auswahlAufheben: "Clear selection",
+    wiederherstellen: (n) => `Restore ${n}`,
+    wiederherstellenLaeuft: "Restoring…",
+    endgueltig: (n) => `Delete ${n} permanently`,
+    endgueltigLaeuft: "Deleting…",
+    confirmEndgueltig: (n) => `Permanently and irreversibly delete ${n} photo(s)?`,
   },
   home: {
     title: "Components",

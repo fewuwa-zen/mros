@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import type { Bauteil } from "@/lib/types";
 import type { EingangGruppe } from "@/lib/data";
-import { assignFotosToBauteil } from "@/app/actions";
+import { assignFotosToBauteil, trashFotos } from "@/app/actions";
 import { useDict } from "@/lib/i18n/context";
 
 type BauteilOpt = Pick<Bauteil, "id" | "name" | "kategorie">;
@@ -58,6 +58,18 @@ export function EingangGalerie({
     }
   }
 
+  async function inPapierkorb() {
+    if (selected.size === 0) return;
+    setBusy(true);
+    try {
+      await trashFotos([...selected]);
+      setSelected(new Set());
+      router.refresh();
+    } finally {
+      setBusy(false);
+    }
+  }
+
   if (bauteile.length === 0) {
     return (
       <p className="rounded-lg border border-amber-300 bg-amber-50 p-4 text-sm text-amber-800">
@@ -93,6 +105,16 @@ export function EingangGalerie({
         >
           {busy ? t.zuweisenLaeuft : t.zuweisen(selected.size)}
         </button>
+        {selected.size > 0 && (
+          <button
+            type="button"
+            disabled={busy}
+            onClick={inPapierkorb}
+            className="rounded-md border border-red-200 px-3 py-1.5 text-sm text-red-600 hover:bg-red-50 disabled:opacity-40"
+          >
+            {busy ? t.inPapierkorbLaeuft : t.inPapierkorb(selected.size)}
+          </button>
+        )}
         {selected.size > 0 && (
           <button
             type="button"

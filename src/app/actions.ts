@@ -176,3 +176,54 @@ export async function deleteFoto(formData: FormData) {
   if (error) throw error;
   revalidatePath(`/bauteil/${bauteilId}`);
 }
+
+// ---------- Papierkorb ----------
+
+// Verschiebt Fotos in den Papierkorb (Soft-Delete – bleiben wiederherstellbar).
+export async function trashFotos(fotoIds: string[]) {
+  if (fotoIds.length === 0) return;
+  const supabase = await createClient();
+  const { error } = await supabase
+    .from("foto")
+    .update({ geloescht_am: new Date().toISOString() })
+    .in("id", fotoIds);
+  if (error) throw error;
+  revalidatePath("/eingang");
+  revalidatePath("/papierkorb");
+}
+
+// Holt Fotos aus dem Papierkorb zurück in den Eingang.
+export async function restoreFotos(fotoIds: string[]) {
+  if (fotoIds.length === 0) return;
+  const supabase = await createClient();
+  const { error } = await supabase
+    .from("foto")
+    .update({ geloescht_am: null })
+    .in("id", fotoIds);
+  if (error) throw error;
+  revalidatePath("/papierkorb");
+  revalidatePath("/eingang");
+}
+
+// Löscht Fotos endgültig (inkl. Datei im Storage).
+export async function deleteFotosPermanent(fotoIds: string[]) {
+  if (fotoIds.length === 0) return;
+  const supabase = await createClient();
+
+  const { data: rows, error: selErr } = await supabase
+    .from("foto")
+    .select("storage_path")
+    .in("id", fotoIds);
+  if (selErr) throw selErr;
+
+  const pfade = (rows ?? [])
+    .map((r) => (r as { storage_path: string }).storage_path)
+    .filter(Boolean);
+  if (pfade.length > 0) {
+    await supabase.storage.from("fotos").remove(pfade);
+  }
+
+  const { error } = await supabase.from("foto").delete().in("id", fotoIds);
+  if (error) throw error;
+  revalidatePath("/papierkorb");
+}

@@ -30,6 +30,7 @@ export type Foto = {
   abbildung_nr: number | null;
   befund: string | null;
   created_at: string;
+  geloescht_am: string | null;
 };
 
 export type Dokument = {

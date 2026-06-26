@@ -92,6 +92,7 @@ export async function getUnzugeordneteFotos(): Promise<EingangGruppe[]> {
     .from("foto")
     .select("*, dokument(titel)")
     .is("bauteil_id", null)
+    .is("geloescht_am", null)
     .order("dokument_id", { ascending: true })
     .order("abbildung_nr", { ascending: true, nullsFirst: false });
   if (error) throw error;
@@ -116,8 +117,21 @@ export async function countUnzugeordnet(): Promise<number> {
   const { count } = await supabase
     .from("foto")
     .select("id", { count: "exact", head: true })
-    .is("bauteil_id", null);
+    .is("bauteil_id", null)
+    .is("geloescht_am", null);
   return count ?? 0;
+}
+
+// Fotos im Papierkorb (geloescht_am gesetzt), neueste zuerst
+export async function getPapierkorbFotos(): Promise<FotoMitUrl[]> {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("foto")
+    .select("*, dokument(titel)")
+    .not("geloescht_am", "is", null)
+    .order("geloescht_am", { ascending: false });
+  if (error) throw error;
+  return withUrl(supabase, (data as FotoRow[]) ?? []);
 }
 
 // Alle hochgeladenen PDF-Gutachten mit öffentlicher URL + Anzahl verknüpfter Fotos
