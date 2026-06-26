@@ -144,7 +144,9 @@ export function EingangGalerie({
                     <img
                       src={f.url}
                       alt={f.dateiname ?? "Foto"}
-                      className="aspect-square w-full object-cover"
+                      loading="lazy"
+                      decoding="async"
+                      className="aspect-square w-full bg-slate-100 object-cover"
                     />
                     <span
                       className={`absolute right-1.5 top-1.5 flex h-5 w-5 items-center justify-center rounded-full border text-[11px] font-bold ${
