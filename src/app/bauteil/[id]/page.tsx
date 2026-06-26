@@ -28,8 +28,6 @@ export default async function BauteilPage({
     <div className="grid gap-6">
       <BauteilHeader bauteil={bauteil} />
 
-      <FotoUpload bauteilId={bauteil.id} />
-
       {/* Noch nicht zugeordnete Fotos */}
       {bauteil.ungeordnet.length > 0 && (
         <section className="grid gap-2">
@@ -63,6 +61,8 @@ export default async function BauteilPage({
           ))
         )}
       </section>
+
+      <FotoUpload bauteilId={bauteil.id} />
     </div>
   );
 }
