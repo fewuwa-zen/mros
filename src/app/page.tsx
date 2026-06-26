@@ -1,7 +1,7 @@
-import Link from "next/link";
 import { getBauteile } from "@/lib/data";
 import { OBJEKT } from "@/lib/constants";
 import { NeuesBauteil } from "@/components/NeuesBauteil";
+import { BauteilListe } from "@/components/BauteilListe";
 import { SetupHinweis } from "@/components/SetupHinweis";
 import { supabaseConfigured } from "@/lib/supabase/config";
 import { getServerDict } from "@/lib/i18n/server";
@@ -32,28 +32,7 @@ export default async function Home() {
           {dict.home.leer}
         </div>
       ) : (
-        <ul className="grid gap-3 sm:grid-cols-2">
-          {bauteile.map((b) => (
-            <li key={b.id}>
-              <Link
-                href={`/bauteil/${b.id}`}
-                className="block rounded-lg border border-slate-200 bg-white p-4 transition hover:border-slate-400 hover:shadow-sm"
-              >
-                <div className="flex items-center justify-between gap-2">
-                  <span className="font-medium text-slate-900">{b.name}</span>
-                  {b.kategorie && (
-                    <span className="rounded-full bg-slate-100 px-2 py-0.5 text-xs text-slate-600">
-                      {dict.kategorie[b.kategorie] ?? b.kategorie}
-                    </span>
-                  )}
-                </div>
-                {b.lage && (
-                  <p className="mt-1 text-sm text-slate-500">{b.lage}</p>
-                )}
-              </Link>
-            </li>
-          ))}
-        </ul>
+        <BauteilListe bauteile={bauteile} />
       )}
     </div>
   );

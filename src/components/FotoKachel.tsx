@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import type { FotoMitUrl, Fotogruppe } from "@/lib/types";
 import { assignFoto, deleteFoto } from "@/app/actions";
@@ -17,6 +17,16 @@ export function FotoKachel({
   const t = dict.foto;
   const router = useRouter();
   const [busy, setBusy] = useState(false);
+  const [zoom, setZoom] = useState(false);
+
+  useEffect(() => {
+    if (!zoom) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setZoom(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [zoom]);
 
   return (
     <div className="overflow-hidden rounded-md border border-slate-200 bg-white">
@@ -24,8 +34,41 @@ export function FotoKachel({
       <img
         src={foto.url}
         alt={foto.dateiname ?? "Foto"}
-        className="aspect-square w-full object-cover"
+        className="aspect-square w-full cursor-zoom-in object-cover"
+        role="button"
+        tabIndex={0}
+        aria-label={t.vergroessernAria}
+        onClick={() => setZoom(true)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            setZoom(true);
+          }
+        }}
       />
+      {zoom && (
+        <div
+          className="no-print fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4"
+          role="dialog"
+          aria-modal="true"
+          onClick={() => setZoom(false)}
+        >
+          <button
+            type="button"
+            aria-label={t.schliessen}
+            onClick={() => setZoom(false)}
+            className="absolute right-4 top-4 rounded-full bg-white/90 px-3 py-1 text-sm font-medium text-slate-900 hover:bg-white"
+          >
+            ✕
+          </button>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={foto.url}
+            alt={foto.dateiname ?? "Foto"}
+            className="max-h-full max-w-full cursor-zoom-out object-contain"
+          />
+        </div>
+      )}
       <div className="flex flex-col gap-1 p-2">
         {foto.befund && (
           <p className="text-xs text-slate-700">{foto.befund}</p>

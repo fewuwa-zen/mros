@@ -28,7 +28,13 @@ export type Dict = {
     hinweis: string;
     keinBauteil: string;
   };
-  home: { title: string; neuesBauteil: string; leer: string };
+  home: {
+    title: string;
+    neuesBauteil: string;
+    leer: string;
+    suchePlaceholder: string;
+    keinTreffer: string;
+  };
   dokumente: {
     title: string;
     subtitle: string;
@@ -100,6 +106,8 @@ export type Dict = {
     nichtZugeordnetOpt: string;
     confirmDelete: string;
     loeschen: string;
+    vergroessernAria: string;
+    schliessen: string;
   };
   prioBadge: { ohne: string };
   prio: Record<1 | 2 | 3 | 4 | 5, string>;
@@ -155,6 +163,8 @@ const de: Dict = {
     title: "Bauteile",
     neuesBauteil: "+ Neues Bauteil",
     leer: "Noch keine Bauteile angelegt. Mit „+ Neues Bauteil“ beginnen.",
+    suchePlaceholder: "Bauteile durchsuchen…",
+    keinTreffer: "Keine Bauteile gefunden.",
   },
   dokumente: {
     title: "Dokumente",
@@ -234,6 +244,8 @@ const de: Dict = {
     nichtZugeordnetOpt: "– nicht zugeordnet –",
     confirmDelete: "Foto löschen?",
     loeschen: "löschen",
+    vergroessernAria: "Foto vergrößern",
+    schliessen: "Schließen",
   },
   prioBadge: { ohne: "ohne Prio" },
   prio: {
@@ -302,6 +314,8 @@ const en: Dict = {
     title: "Components",
     neuesBauteil: "+ New component",
     leer: "No components yet. Start with “+ New component”.",
+    suchePlaceholder: "Search components…",
+    keinTreffer: "No components found.",
   },
   dokumente: {
     title: "Documents",
@@ -380,6 +394,8 @@ const en: Dict = {
     nichtZugeordnetOpt: "– unassigned –",
     confirmDelete: "Delete photo?",
     loeschen: "delete",
+    vergroessernAria: "Enlarge photo",
+    schliessen: "Close",
   },
   prioBadge: { ohne: "no priority" },
   prio: {
