@@ -16,6 +16,7 @@ export type Dict = {
     dokumente: string;
     eingang: string;
     papierkorb: string;
+    anleitung: string;
   };
   eingang: {
     title: string;
@@ -149,6 +150,23 @@ export type Dict = {
     s3post: string;
     s4: string;
   };
+  anleitung: {
+    title: string;
+    subtitle: string;
+    intro: string;
+    reassureTitel: string;
+    reassure: string;
+    leisteTitel: string;
+    leiste: { name: string; text: string }[];
+    schritteTitel: string;
+    schritte: { nr: number; titel: string; lead: string; punkte: string[] }[];
+    herkunftTitel: string;
+    herkunft: string[];
+    wissenTitel: string;
+    wissen: string[];
+    schlussTitel: string;
+    schluss: string;
+  };
 };
 
 const de: Dict = {
@@ -161,6 +179,7 @@ const de: Dict = {
     dokumente: "Dokumente",
     eingang: "Eingang",
     papierkorb: "Papierkorb",
+    anleitung: "Anleitung",
   },
   eingang: {
     title: "Foto-Eingang",
@@ -318,6 +337,98 @@ const de: Dict = {
     s3post: " eintragen.",
     s4: "Dev-Server neu starten.",
   },
+  anleitung: {
+    title: "So benutzen Sie das mros-Tool",
+    subtitle: "Fotos ordnen und Befunde festhalten — Schritt für Schritt",
+    intro:
+      "Mit diesem Tool bringen Sie die Fotos vom Objekt in eine klare Ordnung und halten zu jedem Bauteil fest, was das Problem ist und wie es behoben wird. Daraus entsteht am Ende automatisch ein sauberer Bericht. Nehmen Sie sich Zeit und gehen Sie die vier Schritte unten der Reihe nach durch.",
+    reassureTitel: "Keine Sorge",
+    reassure:
+      "Sie müssen nichts auswendig wissen — diese Seite ist jederzeit über „Anleitung“ oben in der Leiste erreichbar. Vieles lässt sich rückgängig machen: Aus dem Eingang aussortierte Fotos landen im Papierkorb und können wiederhergestellt werden. Vor jedem endgültigen Löschen werden Sie ausdrücklich gefragt.",
+    leisteTitel: "Die Leiste oben",
+    leiste: [
+      {
+        name: "Bauteile",
+        text: "Ihre Liste aller Bauteile (z. B. einzelne Balkone). Das ist Ihr Ausgangspunkt.",
+      },
+      {
+        name: "Eingang",
+        text: "Alle Fotos, die noch keinem Bauteil zugeordnet sind. Die orange Zahl zeigt, wie viele noch warten.",
+      },
+      {
+        name: "Dokumente",
+        text: "Hinterlegte Gutachten als PDF. Beim Hochladen werden enthaltene Fotos automatisch in den Eingang übernommen.",
+      },
+      {
+        name: "Papierkorb",
+        text: "Aussortierte Fotos — von hier zurückholen oder endgültig entfernen.",
+      },
+      {
+        name: "Bericht",
+        text: "Die fertige Übersicht aller Befunde, zum Ansehen und als PDF speichern.",
+      },
+    ],
+    schritteTitel: "Der Ablauf in vier Schritten",
+    schritte: [
+      {
+        nr: 1,
+        titel: "Ein Bauteil anlegen",
+        lead: "Klicken Sie auf „Bauteile“ und dann auf „+ Neues Bauteil“.",
+        punkte: [
+          "Geben Sie eine Bezeichnung ein, z. B. „Balkon Whg. 3a, 2. OG“.",
+          "Kategorie (Balkon, Ablauf, Regenrinne, Fassade, Sonstiges) und Lage sind hilfreich, aber freiwillig.",
+          "Mit „Bauteil anlegen“ speichern. Legen Sie ruhig gleich alle Bauteile an, die Sie am Objekt haben.",
+        ],
+      },
+      {
+        nr: 2,
+        titel: "Fotos einem Bauteil zuweisen",
+        lead: "Neue Fotos sammeln sich im „Eingang“. Ordnen Sie sie dem passenden Bauteil zu:",
+        punkte: [
+          "Kreuzen Sie die Fotos an, die zum selben Bauteil gehören — mit „Alle dieser Gruppe“ auf einmal.",
+          "Wählen Sie oben im Feld „Bauteil wählen…“ das passende Bauteil.",
+          "Klicken Sie auf „… Foto(s) zuweisen“. Die Fotos wandern damit in das Bauteil.",
+          "Fotos, die Sie nicht brauchen, markieren und mit „… in den Papierkorb“ beiseiteschieben — sie sind dort sicher und nicht verloren.",
+        ],
+      },
+      {
+        nr: 3,
+        titel: "Einen Befund erfassen",
+        lead: "Öffnen Sie ein Bauteil (in der Liste „Bauteile“ anklicken). Hier beschreiben Sie die Probleme.",
+        punkte: [
+          "Tippen Sie oben bei „Neuer Befund (Titel)“ einen kurzen Titel ein (z. B. „Rissbildung Betonbrüstung“) und klicken auf „+ Befund“.",
+          "Klicken Sie beim Befund auf „Bearbeiten“ und füllen Sie aus: „Problem / Fehler“ (was ist mangelhaft?), „Lösung / Instandsetzung“ (wie wird es behoben?) und die Priorität von „1 – Sofort“ bis „5 – Beobachten“. Mit „Speichern“ sichern.",
+          "Fotos zum Befund zuordnen: Jedes Foto des Bauteils hat ein kleines Auswahlfeld — wählen Sie dort den passenden Befund. So sieht man später sofort, welches Bild zu welchem Problem gehört.",
+        ],
+      },
+      {
+        nr: 4,
+        titel: "Den Bericht erstellen",
+        lead: "Wenn alles erfasst ist, klicken Sie oben auf „Bericht“.",
+        punkte: [
+          "Dort stehen alle Bauteile mit ihren Befunden, Fotos und Prioritäten ordentlich zusammengefasst.",
+          "Mit „Als PDF speichern / drucken“ machen Sie daraus ein fertiges Dokument zum Versenden oder Ablegen.",
+        ],
+      },
+    ],
+    herkunftTitel: "Woher kommen die Fotos?",
+    herkunft: [
+      "Aus Gutachten: Wenn Sie unter „Dokumente“ ein PDF hochladen, werden die enthaltenen Fotos automatisch in den Eingang übernommen.",
+      "Direkt am Bauteil: Auf der Seite eines Bauteils können Sie ganz unten über „Fotos hochladen“ eigene Bilder hinzufügen. Diese liegen dann gleich beim Bauteil unter „nicht zugeordnet“ bereit.",
+    ],
+    wissenTitel: "Gut zu wissen",
+    wissen: [
+      "Foto vergrößern: Foto anklicken; mit „Schließen“ oder der Esc-Taste wieder zu.",
+      "Versehentlich aussortiert? Im „Papierkorb“ das Foto auswählen und „wiederherstellen“.",
+      "Ein einzelnes Foto am Bauteil über „löschen“ zu entfernen, wird vorher nachgefragt und ist danach endgültig.",
+      "Bauteil suchen: Auf der Bauteile-Seite über das Suchfeld schnell wiederfinden.",
+      "Sprache: oben rechts zwischen Deutsch und Englisch umstellbar.",
+      "Ihre Eingaben werden sofort gespeichert — es gibt keinen extra „Alles sichern“-Knopf.",
+    ],
+    schlussTitel: "In Kürze",
+    schluss:
+      "Bauteil anlegen → Fotos zuweisen → Befund mit Problem & Lösung erfassen → Bericht als PDF. Bei Unsicherheit hilft ein Blick zurück auf diese Seite.",
+  },
 };
 
 const en: Dict = {
@@ -330,6 +441,7 @@ const en: Dict = {
     dokumente: "Documents",
     eingang: "Inbox",
     papierkorb: "Trash",
+    anleitung: "Guide",
   },
   eingang: {
     title: "Photo inbox",
@@ -484,6 +596,98 @@ const en: Dict = {
     s3mid: ".env.local",
     s3post: ".",
     s4: "Restart the dev server.",
+  },
+  anleitung: {
+    title: "How to use the mros tool",
+    subtitle: "Organise photos and record findings — step by step",
+    intro:
+      "This tool brings the photos of the property into a clear order and records, for every component, what the problem is and how it will be fixed. From that a clean report is produced automatically at the end. Take your time and work through the four steps below in order.",
+    reassureTitel: "Don't worry",
+    reassure:
+      "You don't need to memorise anything — this page is always available via “Guide” in the bar at the top. Much can be undone: photos discarded from the inbox land in the trash and can be restored. Before anything is deleted permanently you are asked explicitly.",
+    leisteTitel: "The bar at the top",
+    leiste: [
+      {
+        name: "Components",
+        text: "Your list of all components (e.g. individual balconies). This is your starting point.",
+      },
+      {
+        name: "Inbox",
+        text: "All photos not yet assigned to a component. The orange number shows how many are still waiting.",
+      },
+      {
+        name: "Documents",
+        text: "Stored reports as PDF. On upload, the photos they contain are added to the inbox automatically.",
+      },
+      {
+        name: "Trash",
+        text: "Discarded photos — restore them here or remove them permanently.",
+      },
+      {
+        name: "Report",
+        text: "The finished overview of all findings, to view and save as PDF.",
+      },
+    ],
+    schritteTitel: "The process in four steps",
+    schritte: [
+      {
+        nr: 1,
+        titel: "Create a component",
+        lead: "Click “Components” and then “+ New component”.",
+        punkte: [
+          "Enter a name, e.g. “Balcony apt. 3a, 2nd floor”.",
+          "Category (balcony, drain, gutter, facade, other) and location are helpful but optional.",
+          "Save with “Create component”. Feel free to create all the components you have on site right away.",
+        ],
+      },
+      {
+        nr: 2,
+        titel: "Assign photos to a component",
+        lead: "New photos collect in the “Inbox”. Assign them to the right component:",
+        punkte: [
+          "Check the photos that belong to the same component — use “All in this group” to select them at once.",
+          "Pick the right component in the “Select component…” field at the top.",
+          "Click “Assign … photo(s)”. The photos then move into the component.",
+          "Photos you don't need: select them and set them aside with “Move … to trash” — they are safe there and not lost.",
+        ],
+      },
+      {
+        nr: 3,
+        titel: "Record a finding",
+        lead: "Open a component (click it in the “Components” list). Here you describe the problems.",
+        punkte: [
+          "At the top, type a short title under “New finding (title)” (e.g. “Cracking in concrete parapet”) and click “+ Finding”.",
+          "Click “Edit” on the finding and fill in: “Problem / defect” (what is wrong?), “Solution / repair” (how will it be fixed?) and the priority from “1 – Immediate” to “5 – Monitor”. Save with “Save”.",
+          "Assign photos to the finding: every photo of the component has a small selector — pick the matching finding there. Later you can see at a glance which image belongs to which problem.",
+        ],
+      },
+      {
+        nr: 4,
+        titel: "Create the report",
+        lead: "Once everything is recorded, click “Report” at the top.",
+        punkte: [
+          "It lists all components with their findings, photos and priorities, neatly summarised.",
+          "With “Save as PDF / print” you turn it into a finished document to send or file.",
+        ],
+      },
+    ],
+    herkunftTitel: "Where do the photos come from?",
+    herkunft: [
+      "From reports: when you upload a PDF under “Documents”, the photos it contains are added to the inbox automatically.",
+      "Directly on the component: on a component's page you can add your own images at the very bottom via “Upload photos”. They are then ready under “unassigned” on that component.",
+    ],
+    wissenTitel: "Good to know",
+    wissen: [
+      "Enlarge a photo: click it; close again with “Close” or the Esc key.",
+      "Discarded by mistake? Select the photo in “Trash” and choose “Restore”.",
+      "Removing a single photo on a component via “delete” asks first and is permanent afterwards.",
+      "Find a component: use the search field on the Components page.",
+      "Language: switchable between German and English at the top right.",
+      "Your entries are saved immediately — there is no separate “Save all” button.",
+    ],
+    schlussTitel: "In short",
+    schluss:
+      "Create component → assign photos → record finding with problem & solution → report as PDF. When unsure, a look back at this page helps.",
   },
 };
 

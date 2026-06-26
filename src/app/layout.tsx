@@ -87,6 +87,12 @@ export default async function RootLayout({
                   {dict.nav.papierkorb}
                 </Link>
                 <Link
+                  href="/anleitung"
+                  className="rounded-md px-3 py-1.5 text-slate-600 hover:bg-slate-100"
+                >
+                  {dict.nav.anleitung}
+                </Link>
+                <Link
                   href="/bericht"
                   className="rounded-md bg-slate-900 px-3 py-1.5 font-medium text-white hover:bg-slate-700"
                 >
