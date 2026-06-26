@@ -120,6 +120,20 @@ export async function registerFoto(input: {
   revalidatePath(`/bauteil/${input.bauteil_id}`);
 }
 
+// ---------- Dokument ----------
+
+// Wird nach erfolgreichem Upload im Browser aufgerufen, um den DB-Eintrag anzulegen.
+export async function registerDokument(input: {
+  storage_path: string;
+  dateiname: string;
+  titel: string | null;
+}) {
+  const supabase = await createClient();
+  const { error } = await supabase.from("dokument").insert(input);
+  if (error) throw error;
+  revalidatePath("/dokumente");
+}
+
 export async function assignFoto(formData: FormData) {
   const id = String(formData.get("id"));
   const bauteilId = String(formData.get("bauteil_id"));

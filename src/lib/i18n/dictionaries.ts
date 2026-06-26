@@ -35,6 +35,14 @@ export type Dict = {
     leer: string;
     oeffnen: string;
     meta: (seiten: number, fotos: number) => string;
+    upload: {
+      titel: string;
+      hinweis: string;
+      laeuft: (i: number, n: number) => string;
+      fertig: (n: number) => string;
+      uploadFehler: (msg: string) => string;
+      eintragFehler: (msg: string) => string;
+    };
   };
   fotoMeta: { quelle: (titel: string, abb: number, seite: number) => string };
   bauteilForm: {
@@ -154,6 +162,14 @@ const de: Dict = {
     leer: "Noch keine Dokumente hochgeladen.",
     oeffnen: "PDF öffnen",
     meta: (seiten, fotos) => `${seiten} Seiten · ${fotos} Fotos importiert`,
+    upload: {
+      titel: "Dokument hochladen",
+      hinweis: "Ein oder mehrere PDFs auswählen",
+      laeuft: (i, n) => `Lade hoch… (${i}/${n})`,
+      fertig: (n) => `${n} Dokument(e) hochgeladen`,
+      uploadFehler: (msg) => `Upload fehlgeschlagen: ${msg}`,
+      eintragFehler: (msg) => `Eintrag fehlgeschlagen: ${msg}`,
+    },
   },
   fotoMeta: {
     quelle: (titel, abb, seite) => `${titel} · Abb. ${abb} (S. ${seite})`,
@@ -293,6 +309,14 @@ const en: Dict = {
     leer: "No documents uploaded yet.",
     oeffnen: "Open PDF",
     meta: (seiten, fotos) => `${seiten} pages · ${fotos} photos imported`,
+    upload: {
+      titel: "Upload document",
+      hinweis: "Select one or more PDFs",
+      laeuft: (i, n) => `Uploading… (${i}/${n})`,
+      fertig: (n) => `${n} document(s) uploaded`,
+      uploadFehler: (msg) => `Upload failed: ${msg}`,
+      eintragFehler: (msg) => `Saving entry failed: ${msg}`,
+    },
   },
   fotoMeta: {
     quelle: (titel, abb, seite) => `${titel} · Fig. ${abb} (p. ${seite})`,

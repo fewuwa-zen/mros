@@ -1,5 +1,6 @@
 import { getDokumente } from "@/lib/data";
 import { OBJEKT } from "@/lib/constants";
+import { DokumentUpload } from "@/components/DokumentUpload";
 import { SetupHinweis } from "@/components/SetupHinweis";
 import { supabaseConfigured } from "@/lib/supabase/config";
 import { getServerDict } from "@/lib/i18n/server";
@@ -29,6 +30,8 @@ export default async function DokumentePage() {
           {OBJEKT.name}, {OBJEKT.ort} · {t.subtitle}
         </p>
       </div>
+
+      <DokumentUpload />
 
       {dokumente.length === 0 ? (
         <div className="rounded-lg border border-dashed border-slate-300 bg-white p-10 text-center text-sm text-slate-500">
